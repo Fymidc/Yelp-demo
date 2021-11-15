@@ -1,0 +1,9 @@
+package com.myplace.letsgo.dto;
+
+import lombok.Data;
+
+@Data
+public class CommentUpdateRequest {
+    private String text;
+
+}
