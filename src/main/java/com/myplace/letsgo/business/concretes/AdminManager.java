@@ -50,4 +50,9 @@ public class AdminManager implements AdminService{
         
     }
 
+    @Override
+    public Admin getOneAdminById(Long id) {
+        return adminDao.findById(id).get();
+    }
+
 }
