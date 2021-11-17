@@ -9,11 +9,13 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "customer")
 public class Customer extends User{
@@ -26,25 +28,22 @@ public class Customer extends User{
     private String email;
     private String[] favorites;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "customer")
-    private Comment comment;
+    // @JsonIgnore
+    // @OneToMany(mappedBy = "customer")
+    //private Comment comment;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "customer")
-    private Like like;
-
+   
+    //private Like like;
 
 
-    public Customer(String userName,String password, Long id, String[] favorites,
-     Comment comment, Like like,String email) {
-       super(userName,password);
-        this.id = id;
-        this.favorites = favorites;
-        this.comment = comment;
-        this.like = like;
-        this.email=email;
-    }
+
+    // public Customer(String userName,String password, Long id, String[] favorites,
+    // String email) {
+    //    super(userName,password);
+    //     this.id = id;
+    //     this.favorites = favorites;
+    //     this.email=email;
+    // }
 
 
 

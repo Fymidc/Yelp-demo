@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.myplace.letsgo.business.abstracts.CustomerService;
 import com.myplace.letsgo.dataaccess.CustomerDao;
+import com.myplace.letsgo.exception.CustomerNotFoundException;
 import com.myplace.letsgo.models.Customer;
 
 import org.springframework.stereotype.Service;
@@ -11,12 +12,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomerManager implements CustomerService{
 
-    private Customer customer;
-    private CustomerDao customerDao;
+    private final CustomerDao customerDao;
 
-    public CustomerManager(Customer customer,CustomerDao customerDao) {
+    public CustomerManager(CustomerDao customerDao) {
         this.customerDao = customerDao;
-        this.customer=customer;
 
     }
 
@@ -46,14 +45,16 @@ public class CustomerManager implements CustomerService{
 
     @Override
     public void deleteOneCustomer(Long id) {
-         customerDao.delete(customer);
+         customerDao.deleteById(id);
         
     }
 
     @Override
     public Customer getOneCustomerById(Long id) {
         
-        return customerDao.findById(id).get();
+        return customerDao.findById(id).orElseThrow(
+            ()-> new CustomerNotFoundException("customerid cannot found"+id)
+        );
     }
     
 }

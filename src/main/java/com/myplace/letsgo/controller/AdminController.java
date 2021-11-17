@@ -16,8 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/admin")
 public class AdminController {
     
-    private AdminService adminService;
+    private final AdminService adminService;
 
+
+    public AdminController(AdminService adminService) {
+        this.adminService = adminService;
+    }
 
     @GetMapping("/{id}")
     public Admin getOneAdminById(@PathVariable Long id){
@@ -30,7 +34,7 @@ public class AdminController {
     }
 
     @PutMapping("/{id}")
-    public Admin updateOnAdmin(@PathVariable Long id,Admin newAdmin){
+    public Admin updateOnAdmin(@PathVariable Long id, @RequestBody Admin newAdmin){
         return adminService.updateOneAdmin(id, newAdmin);
     }
 
@@ -43,3 +47,5 @@ public class AdminController {
 
 
 }
+
+//1 admin oluşturuldu id-1

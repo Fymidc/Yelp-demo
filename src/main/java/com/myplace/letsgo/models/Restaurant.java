@@ -34,12 +34,10 @@ public class Restaurant {
     private String[] amenities;
     private boolean isOpen;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "restaurant")
-    private Comment comment;
+    // @JsonIgnore
+    // @OneToMany(mappedBy = "restaurant") 
+    //private Comment comment; //onetomany için liste döndürmeli,
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "restaurant")
-    private Like like;
+    //private Like like;
     
 }

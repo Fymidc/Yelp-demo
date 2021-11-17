@@ -20,7 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/like")
 public class LikeController {
     
-    private LikeService likeService;
+    private final LikeService likeService;
+
+
+    public LikeController(LikeService likeService) {
+        this.likeService = likeService;
+    }
 
     @GetMapping
     public List<Like> getAllLikes (@RequestParam Optional<Long> customerid,@RequestParam Optional<Long> restaurantid ){

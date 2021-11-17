@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 @MappedSuperclass
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public abstract class User {
     String userName;

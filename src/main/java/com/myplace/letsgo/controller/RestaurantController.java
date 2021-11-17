@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/restaurant")
 public class RestaurantController {
     
-    private RestaurantService restaurantService;
+    private final RestaurantService restaurantService;
+
+    public RestaurantController(RestaurantService restaurantService) {
+        this.restaurantService = restaurantService;
+    }
 
     @GetMapping
     public List<Restaurant> getAllRestaurant(){
@@ -28,7 +33,8 @@ public class RestaurantController {
     }
 
     @GetMapping("/{restaurantid}")
-    public Restaurant getOneRestaurantById(@PathVariable Long restaurantid ){
+    public Restaurant getOneRestaurantById(@PathVariable Long restaurantid )throws Exception{
+
 
     try {
         return restaurantService.getOneRestaurantById(restaurantid);
@@ -40,13 +46,21 @@ public class RestaurantController {
     }
 
     @PostMapping
-    public Restaurant createOneRestaurant(RestaurantCreateRequest newRestaurant){
-        return restaurantService.createOneRestaurant(newRestaurant);
+    public Restaurant createOneRestaurant(@RequestBody RestaurantCreateRequest newRestaurant)throws Exception{
+
+        try {
+           return restaurantService.createOneRestaurant(newRestaurant);    
+        } catch (Exception e) {
+            throw new Exception("cannot create restaurant"); 
+        }
+        
+        
     }
 
     @PutMapping("/{id}")
-    public Restaurant updateRestaurant(@PathVariable Long id,RestaurantUpdateRequest request){
+    public Restaurant updateRestaurant(@PathVariable Long id,@RequestBody RestaurantUpdateRequest request){
         return restaurantService.updateOneRestaurant(id, request);
+
     }
 
     @DeleteMapping("/{restaurantid}")
@@ -55,3 +69,5 @@ public class RestaurantController {
     }
 
 }
+
+//restaurant oluşturuldu id-2 (id 3-4) düzenle

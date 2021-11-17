@@ -20,10 +20,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommentManager implements CommentService {
 
-    private CommentDao commentDao;
-    private RestaurantDao restaurantDao;
-    private CustomerDao customerDao;
+    private final CommentDao commentDao;
+    private final RestaurantDao restaurantDao;
+    private final CustomerDao customerDao;
 
+    
+    public CommentManager(CommentDao commentDao, RestaurantDao restaurantDao, CustomerDao customerDao) {
+        this.commentDao = commentDao;
+        this.restaurantDao = restaurantDao;
+        this.customerDao = customerDao;
+    }
+
+
+    
     @Override
     public List<CommentResponse> getAllComments(Optional<Long> customerid, Optional<Long> restaurantid) {
         List<Comment> list;

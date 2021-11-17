@@ -16,7 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/customer")
 public class CustomerController {
     
-    private CustomerService customerService;
+    private final CustomerService customerService;
+    
+
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
 
     @PostMapping
     public Customer add(@RequestBody Customer customer){
@@ -39,3 +44,5 @@ public class CustomerController {
     }
 
 }
+
+//customer oluştutuldu id-1

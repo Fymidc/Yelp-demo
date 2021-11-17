@@ -12,16 +12,21 @@ import com.myplace.letsgo.models.Customer;
 import com.myplace.letsgo.models.Like;
 import com.myplace.letsgo.models.Restaurant;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class LikeManager implements LikeService {
 
 
-    private LikeDao likedao;
-    private RestaurantDao restaurantDao;
-    private CustomerDao customerDao;
+    private final LikeDao likedao;
+    private final RestaurantDao restaurantDao;
+    private final CustomerDao customerDao;
     
 
-    public LikeManager(LikeDao likedao) {
+    public LikeManager(LikeDao likedao, RestaurantDao restaurantDao, CustomerDao customerDao) {
         this.likedao = likedao;
+        this.restaurantDao = restaurantDao;
+        this.customerDao = customerDao;
     }
 
     @Override

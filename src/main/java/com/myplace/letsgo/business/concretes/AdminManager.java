@@ -10,14 +10,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AdminManager implements AdminService{
-    
-    private Admin admin;
-    private AdminDao adminDao;
+  
+    private final AdminDao adminDao;
 
-    public AdminManager(Admin admin,AdminDao adminDao) {
+    public AdminManager(AdminDao adminDao) {
         this.adminDao = adminDao;
-        this.admin=admin;
-
     }
 
     @Override
@@ -39,14 +36,15 @@ public class AdminManager implements AdminService{
             adminDao.save(foundedAdmin);
 
             return foundedAdmin;
+        }else{ 
+            return null;
         }
-
-        return null;
+        
     }
 
     @Override
     public void deleteOneAdmin(Long id) {
-         adminDao.delete(admin);
+         adminDao.deleteById(id);
         
     }
 

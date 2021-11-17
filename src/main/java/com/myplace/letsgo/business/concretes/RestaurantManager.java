@@ -14,19 +14,29 @@ import org.springframework.stereotype.Service;
 @Service
 public class RestaurantManager implements RestaurantService{
 
-    private RestaurantDao restaurantdao;
+    private final RestaurantDao restaurantdao;
+
+    public RestaurantManager(RestaurantDao restaurantdao) {
+        this.restaurantdao = restaurantdao;
+    }
 
 
+    
     @Override
     public List<Restaurant> getAllRestaurant() {
         
         return restaurantdao.findAll();
     }
 
+    public List<Restaurant> getAllRestaurantByRestaurants(String restaurantName) {
+        
+        return restaurantdao.getAllRestaurantByRestaurantName(restaurantName);
+    }
+
     @Override
     public Restaurant getOneRestaurantById(Long restaurantid) {
         
-        return restaurantdao.getById(restaurantid);
+        return restaurantdao.findById(restaurantid).get();
     }
 
     @Override
@@ -44,7 +54,6 @@ public class RestaurantManager implements RestaurantService{
         restaurantToSave.setAmenities(newRestaurant.getAmenities());
         restaurantToSave.setOpen(newRestaurant.isOpen());
 
-
         return restaurantdao.save(restaurantToSave);
     }
 
@@ -54,7 +63,7 @@ public class RestaurantManager implements RestaurantService{
         Optional<Restaurant> restaurant =restaurantdao.findById(id);
 
         if(restaurant.isPresent()){
-            Restaurant toSave = new Restaurant();
+            Restaurant toSave = restaurant.get();
 
             toSave.setRestaurantName(request.getRestaurantName());
             toSave.setInfo(request.getInfo());

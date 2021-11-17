@@ -23,7 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/comment")
 public class CommentController {
 
-    private CommentService commentService;
+    private final CommentService commentService;
+
+    
+    public CommentController(CommentService commentService) {
+        this.commentService = commentService;
+    }
 
     @GetMapping
     public List<CommentResponse> getAllComments (@RequestParam Optional<Long> customerid, @RequestParam Optional<Long> restaurantid){
