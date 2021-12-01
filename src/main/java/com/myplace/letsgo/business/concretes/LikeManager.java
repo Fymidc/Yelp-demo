@@ -2,12 +2,14 @@ package com.myplace.letsgo.business.concretes;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.myplace.letsgo.business.abstracts.LikeService;
 import com.myplace.letsgo.dataaccess.CustomerDao;
 import com.myplace.letsgo.dataaccess.LikeDao;
 import com.myplace.letsgo.dataaccess.RestaurantDao;
 import com.myplace.letsgo.dto.LikeCreateRequest;
+import com.myplace.letsgo.dto.LikeResponse;
 import com.myplace.letsgo.models.Customer;
 import com.myplace.letsgo.models.Like;
 import com.myplace.letsgo.models.Restaurant;
@@ -30,17 +32,22 @@ public class LikeManager implements LikeService {
     }
 
     @Override
-    public List<Like> getAllLikes(Optional<Long> customerid, Optional<Long> restaurantid) {
-       
-        if(customerid.isPresent()){
-            likedao.findByCustomerId(customerid).get();
+    public List<LikeResponse> getAllLikes(Optional<Long> customerid, Optional<Long> restaurantid) {
+        List<Like> list;
+        if(customerid.isPresent() && restaurantid.isPresent()){
+            list = likedao.findByCustomerIdAndRestaurantId(customerid.get(),restaurantid.get());
         }else if (restaurantid.isPresent()){
-            likedao.findByRestaurantId(restaurantid).get();
+            list=likedao.findByRestaurantId(restaurantid.get());
+        }else if(customerid.isPresent()){
+            list=likedao.findByCustomerId(customerid.get());
         }else{
-            likedao.findAll();
+            list = likedao.findAll();
         }
 
-        return null;
+        //dönen değeri liste halinde almak içim like listesi oluiturup
+        //listedeki verileri mapm ile response nesnesine dönüştürüp yeniden liste halinde döner
+        return list.stream().map(p-> new LikeResponse(p)).collect(Collectors.toList());
+    
     }
 
     @Override

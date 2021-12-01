@@ -46,7 +46,7 @@ public class CommentController {
     }
 
     @PutMapping("{commentid}")
-    public Comment updateoneComment(@PathVariable Long commentid ,CommentUpdateRequest request){
+    public Comment updateoneComment(@PathVariable Long commentid ,@RequestBody CommentUpdateRequest request){
         return commentService.updateOneComment(commentid, request);
     }
 

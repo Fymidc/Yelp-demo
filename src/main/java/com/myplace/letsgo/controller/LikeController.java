@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.myplace.letsgo.business.abstracts.LikeService;
 import com.myplace.letsgo.dto.LikeCreateRequest;
+import com.myplace.letsgo.dto.LikeResponse;
 import com.myplace.letsgo.models.Like;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,7 +29,7 @@ public class LikeController {
     }
 
     @GetMapping
-    public List<Like> getAllLikes (@RequestParam Optional<Long> customerid,@RequestParam Optional<Long> restaurantid ){
+    public List<LikeResponse> getAllLikes (@RequestParam Optional<Long> customerid,@RequestParam Optional<Long> restaurantid ){
         return likeService.getAllLikes(customerid, restaurantid);
     }
 
@@ -38,7 +39,7 @@ public class LikeController {
     }
 
     @PostMapping
-    public Like createOnelLike(LikeCreateRequest request){
+    public Like createOnelLike(@RequestBody LikeCreateRequest request){
         return likeService.createOneLike(request);
     }
 

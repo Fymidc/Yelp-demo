@@ -7,5 +7,6 @@ import com.myplace.letsgo.models.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RestaurantDao extends JpaRepository<Restaurant,Long>{
-    List<Restaurant> getAllRestaurantByRestaurantName(String restaurantName);
+    List<Restaurant> getByRestaurantNameContains(String restaurantName);
+    List<Restaurant> getByRestaurantNameStartsWith(String restaurantName);
 }

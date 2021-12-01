@@ -8,6 +8,7 @@ import com.myplace.letsgo.dto.RestaurantUpdateRequest;
 import com.myplace.letsgo.exception.RestaurantNotFoundException;
 import com.myplace.letsgo.models.Restaurant;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/restaurant")
+@CrossOrigin
 public class RestaurantController {
     
     private final RestaurantService restaurantService;
@@ -66,6 +68,16 @@ public class RestaurantController {
     @DeleteMapping("/{restaurantid}")
     public void deleteOneRestaurantById(@PathVariable Long restaurantid){
         restaurantService.deleteOneRestaurantById(restaurantid);
+    }
+
+    @GetMapping("/sw/{restaurantName}")
+    public List <Restaurant> getByRestaurantNameStartsWith(@PathVariable String restaurantName){
+            return restaurantService.getByRestaurantNameStartsWith(restaurantName);
+    }
+
+    @GetMapping("/cn/{restaurantName}")
+    public List <Restaurant> getByRestaurantNameContains(@PathVariable String restaurantName){
+            return restaurantService.getByRestaurantNameContains(restaurantName);
     }
 
 }

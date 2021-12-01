@@ -28,9 +28,9 @@ public class RestaurantManager implements RestaurantService{
         return restaurantdao.findAll();
     }
 
-    public List<Restaurant> getAllRestaurantByRestaurants(String restaurantName) {
+    public List<Restaurant> getByRestaurantNameContains(String restaurantName) {
         
-        return restaurantdao.getAllRestaurantByRestaurantName(restaurantName);
+        return restaurantdao.getByRestaurantNameContains(restaurantName);
     }
 
     @Override
@@ -85,6 +85,14 @@ public class RestaurantManager implements RestaurantService{
     public void deleteOneRestaurantById(Long restaurantid) {
         restaurantdao.deleteById(restaurantid);
         
+    }
+
+
+
+    @Override
+    public List<Restaurant> getByRestaurantNameStartsWith(String restaurantName) {
+       
+        return restaurantdao.getByRestaurantNameStartsWith(restaurantName);
     }
     
 }

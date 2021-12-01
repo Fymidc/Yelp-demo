@@ -9,6 +9,8 @@ import com.myplace.letsgo.models.Restaurant;
 public interface RestaurantService {
     
     List<Restaurant> getAllRestaurant();
+    List<Restaurant> getByRestaurantNameStartsWith(String restaurantName);
+    List<Restaurant> getByRestaurantNameContains(String restaurantName);
 
     Restaurant getOneRestaurantById(Long restaurantid);
 

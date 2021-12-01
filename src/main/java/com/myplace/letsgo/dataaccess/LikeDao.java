@@ -1,5 +1,6 @@
 package com.myplace.letsgo.dataaccess;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.myplace.letsgo.models.Like;
@@ -8,8 +9,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LikeDao extends JpaRepository<Like,Long> {
 
-    Optional<Long> findByCustomerId(Optional<Long> customerid);
+    List<Like> findByCustomerId(Long long1);
 
-    Optional<Long> findByRestaurantId(Optional<Long> restaurantid);
+    List<Like> findByCustomerIdAndRestaurantId(Long long1, Long long2);
+
+    List<Like> findByRestaurantId(Long long1);
     
 }
