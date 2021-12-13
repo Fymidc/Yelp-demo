@@ -28,9 +28,12 @@ public class RestaurantManager implements RestaurantService{
         return restaurantdao.findAll();
     }
 
-    public List<Restaurant> getByRestaurantNameContains(String restaurantName) {
-        
-        return restaurantdao.getByRestaurantNameContains(restaurantName);
+    public List<Restaurant> getByRestaurantNameContains(Optional<String> restaurantName) {
+        if(restaurantName.isPresent()) {
+
+            return restaurantdao.getByRestaurantNameContains(restaurantName);
+        }
+        return restaurantdao.findAll();
     }
 
     @Override

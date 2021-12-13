@@ -1,6 +1,7 @@
 package com.myplace.letsgo.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.myplace.letsgo.business.abstracts.RestaurantService;
 import com.myplace.letsgo.dto.RestaurantCreateRequest;
@@ -76,7 +77,7 @@ public class RestaurantController {
     }
 
     @GetMapping("/cn/{restaurantName}")
-    public List <Restaurant> getByRestaurantNameContains(@PathVariable String restaurantName){
+    public List <Restaurant> getByRestaurantNameContains(@PathVariable Optional<String> restaurantName){
             return restaurantService.getByRestaurantNameContains(restaurantName);
     }
 

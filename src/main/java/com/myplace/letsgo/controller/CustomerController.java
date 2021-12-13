@@ -3,6 +3,7 @@ package com.myplace.letsgo.controller;
 import com.myplace.letsgo.business.abstracts.CustomerService;
 import com.myplace.letsgo.models.Customer;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/customer")
+@CrossOrigin
 public class CustomerController {
     
     private final CustomerService customerService;

@@ -8,10 +8,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CommentDao extends JpaRepository<Comment,Long>{
 
-    List<Comment> findByCustomerId(Long long1);
+    List<Comment> findByCustomerId(Long customerid);
 
-    List<Comment> findByRestaurantId(Long long1);
+    List<Comment> findByRestaurantId(Long restaurantid);
 
-    List<Comment> findByCustomerIdAndRestaurantId(Long long1, Long long2);
+    List<Comment> findByCustomerIdAndRestaurantId(Long customerid, Long restaurantid);
     
 }

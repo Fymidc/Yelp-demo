@@ -1,6 +1,7 @@
 package com.myplace.letsgo.business.abstracts;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.myplace.letsgo.dto.RestaurantCreateRequest;
 import com.myplace.letsgo.dto.RestaurantUpdateRequest;
@@ -10,7 +11,7 @@ public interface RestaurantService {
     
     List<Restaurant> getAllRestaurant();
     List<Restaurant> getByRestaurantNameStartsWith(String restaurantName);
-    List<Restaurant> getByRestaurantNameContains(String restaurantName);
+    List<Restaurant> getByRestaurantNameContains(Optional<String> restaurantName);
 
     Restaurant getOneRestaurantById(Long restaurantid);
 
