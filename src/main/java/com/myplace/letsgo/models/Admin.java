@@ -22,11 +22,4 @@ public class Admin extends User{
     private Long id;
 
 
-    // public Admin(String userName, String password,Long id) {
-    //     super(userName, password);
-    //     this.id=id;
-        
-    //     //TODO Auto-generated constructor stub
-    // }
-    
 }

@@ -56,5 +56,11 @@ public class CustomerManager implements CustomerService{
             ()-> new CustomerNotFoundException("customerid cannot found"+id)
         );
     }
+
+    @Override
+    public Customer getOneCustomerByUserName(String userName) {
+       
+        return customerDao.findByUserName(userName);
+    }
     
 }
