@@ -1,7 +1,7 @@
 package com.myplace.letsgo.controller;
 
 import com.myplace.letsgo.business.abstracts.CustomerService;
-import com.myplace.letsgo.dataaccess.CustomerDao;
+import com.myplace.letsgo.dto.AuthResponse;
 import com.myplace.letsgo.dto.UserRequest;
 import com.myplace.letsgo.models.Customer;
 import com.myplace.letsgo.security.JwtTokenProvider;
@@ -43,20 +43,26 @@ public class AuthenticationController {
 
 
     @PostMapping("/login")
-    public String login(@RequestBody UserRequest request){
+    public AuthResponse login(@RequestBody UserRequest request){
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(request.getUserName(),request.getPassword());
         Authentication auth = authenticationManager.authenticate(authToken);
         SecurityContextHolder.getContext().setAuthentication(auth);
         String jwtToken = jwtTokenProvider.generateJwtToken(auth);
         
-        return  "Bearer " + jwtToken;
+        Customer customer = customerService.getOneCustomerByUserName(request.getUserName());
+        AuthResponse authResponse = new AuthResponse();
+        authResponse.setMessage("Bearer " + jwtToken);
+        authResponse.setUserId(customer.getId());
+        return  authResponse ;
     }
 
     @PostMapping("/register")
-    public  ResponseEntity<String> register(@RequestBody UserRequest request){
+    public  ResponseEntity<AuthResponse> register(@RequestBody UserRequest request){
+        AuthResponse authResponse = new AuthResponse();
         if(customerService.getOneCustomerByUserName(request.getUserName()) != null ){
             //boyle bır kullanıcı var hata döneriz
-            return new ResponseEntity<>("Username alaready taken",HttpStatus.BAD_REQUEST);
+            authResponse.setMessage("Username alaready taken");
+            return new ResponseEntity<>(authResponse,HttpStatus.BAD_REQUEST);
         }
 
         Customer customer = new Customer();
@@ -65,8 +71,8 @@ public class AuthenticationController {
             customer.setEmail(request.getEmail());
 
             customerService.saveOneCustomer(customer);
-            
-            return new ResponseEntity<>("User succesfully registered",HttpStatus.CREATED);
+            authResponse.setMessage("User succesfully registered");
+            return new ResponseEntity<>( authResponse ,HttpStatus.CREATED);
 
     }
 
